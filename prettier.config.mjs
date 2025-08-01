@@ -1,0 +1,32 @@
+const config = {
+  plugins: ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  tailwindConfig: "./tailwind.config.ts",
+  tabWidth: 2,
+  printWidth: 120,
+  useTabs: false,
+  arrowParens: "always",
+  bracketSpacing: true,
+  bracketSameLine: false,
+  jsxSingleQuote: false,
+  quoteProps: "as-needed",
+  semi: true,
+  singleQuote: false,
+  trailingComma: "es5",
+  singleAttributePerLine: true,
+  importOrder: [
+    "^react$",
+    "^react-dom$",
+    "<THIRD_PARTY_MODULES>",
+    "^@(.*)$",
+    "~/components",
+    "~/hooks",
+    "~/lib",
+    "~/utils",
+    "^[./]",
+  ],
+  importOrderSeparation: false,
+  importOrderSortSpecifiers: true,
+  importOrderCaseInsensitive: true,
+};
+
+export default config;

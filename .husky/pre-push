@@ -1,0 +1,31 @@
+pnpm run format
+if [ $? -ne 0 ]; then
+  echo "\033[0;31mFormatting failed. Push aborted.\033[0m"
+  exit 1
+fi
+if [ $? -eq 0 ]; then
+  echo "\033[0;32mFormatting passed.\033[0m"
+fi
+
+# pnpm run lint
+# if [ $? -ne 0 ]; then
+#   echo "\033[0;31mLinting failed. Push aborted.\033[0m"
+#   exit 1
+# fi
+# if [ $? -eq 0 ]; then
+#   echo "\033[0;32mLinting passed.\033[0m"
+# fi
+
+# pnpm run build
+# if [ $? -ne 0 ]; then
+#   echo "\033[0;31mBuild process failed. Push aborted.\033[0m"
+#   exit 1
+# fi
+# if [ $? -eq 0 ]; then
+#   echo "\033[0;32mBuild process passed.\033[0m"
+# fi
+
+# lint-staged
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+echo "\033[0;35mCommitting changes to branch: '$BRANCH_NAME'\033[0m"

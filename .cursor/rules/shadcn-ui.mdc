@@ -1,0 +1,17 @@
+---
+description: shadcn/ui
+globs: src/**/*.ts,src/**/*.tsx
+alwaysApply: false
+---
+
+# Installing Components
+
+Use the latest version of Shadcn to install new components, like this command to add a button component:
+
+```bash
+pnpx shadcn@latest add button
+```
+
+# Using Components
+
+- Always check the ./src/components/ui folder for available components before installing new components or creating your own components.
