@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
-export default function Header() {
+export function Header() {
   return (
-    <header className="flex justify-between gap-2 bg-white p-2 text-black">
+    <header className="bg-background text-foreground flex items-center justify-between gap-2 p-2">
       <nav className="flex flex-row">
         <div className="px-2 font-bold">
           <Link to="/">Home</Link>
@@ -32,6 +33,8 @@ export default function Header() {
           <Link to="/demo/tanstack-query">TanStack Query</Link>
         </div>
       </nav>
+
+      <ThemeToggle />
     </header>
   );
 }

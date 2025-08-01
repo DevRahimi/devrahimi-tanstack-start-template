@@ -1,20 +1,23 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-type Theme = "dark" | "light" | "system";
+export type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
+  disableSystemTheme?: boolean;
 };
 
 type ThemeProviderState = {
   theme: Theme;
+  themes: Theme[];
   setTheme: (theme: Theme) => void;
 };
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  themes: ["dark", "light", "system"] as Theme[],
+  theme: "light",
   setTheme: () => null,
 };
 
@@ -22,8 +25,9 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "tanstack-better-auth-app-theme",
+  defaultTheme = "light",
+  storageKey = "tanstack-start-app-theme",
+  disableSystemTheme = false,
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -33,12 +37,19 @@ export function ThemeProvider({
     return defaultTheme;
   });
 
+  const themes = useMemo<Theme[]>(() => {
+    if (disableSystemTheme) {
+      return ["dark", "light"];
+    }
+    return ["dark", "light", "system"];
+  }, [disableSystemTheme]);
+
   useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove("light", "dark");
 
-    if (theme === "system") {
+    if (theme === "system" && !disableSystemTheme) {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
       root.classList.add(systemTheme);
@@ -54,6 +65,7 @@ export function ThemeProvider({
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
+    themes,
   };
 
   return (
